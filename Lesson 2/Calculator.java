@@ -4,6 +4,7 @@ public class Calculator {
     public int result;
     public String sign;
     public String yesNo;
+    public boolean isSign; //= sign == "+";// || sign == "-" || sign == "*" || sign == "/" || sign == "%" || sign == "^";
 
     // public Calculator(double inputA, double inputB, double result, String sign) {
     //     this.inputA = inputA;
@@ -21,7 +22,7 @@ public class Calculator {
         this.inputB = inputB;
     }
 
-    public double getResult() {
+    public int getResult() {
         return result;
     }
 
@@ -29,8 +30,23 @@ public class Calculator {
         this.result = result;
     }
 
+    public String getSign() {
+        return sign;
+    }
+
     public void setSign(String sign) {
+        if (sign == "+" || sign == "-" || sign == "*" || sign == "/" || sign == "%" || sign == "^") {
+            isSign = true;
+            
+        } else {
+            System.out.print("Неверно задан знак мат. операции!\n" +
+                    "Выберите из списка [+ - * / % ^] : ");
+        }
         this.sign = sign;
+    }
+
+    public boolean isSign() {
+        return isSign;
     }
 
     public int check() {
@@ -55,7 +71,11 @@ public class Calculator {
             case "%":
                 result = inputA % inputB;
                 break;
+            default:
+                
+                break;
         }
         return result;
+
     }
 }
