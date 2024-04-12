@@ -9,30 +9,28 @@ public class CalculatorTest {
         // ввод математического выражения
         // запуск вычислений
         // обработку ответа пользователя о продолжении/завершении
-        
         Calculator calc = new Calculator();
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Введите первое число: ");
-        calc.setInputA(scanner.nextInt());
-        // calc.setInputA(10);
-        scanner.nextLine();
-        System.out.print("Введите знак математической операции: ");
-        do {
-            calc.setSign(scanner.nextLine());
-            System.out.println(calc.isSign());
-        } while (calc.isSign(false));
-        System.out.println(calc.isSign());
-        // scanner.nextLine();
-        // calc.setSign("-");
-        System.out.println(calc.getSign());
-        System.out.print("Введите второе число: ");
-        calc.setInputB(scanner.nextInt());
-        // calc.setInputB(10);
-        // scanner.nextLine();
-        System.out.println(calc.getResult());
-        System.out.println("Результат вычисления: " + calc.check());
-        System.out.println(calc.getResult());
-        System.out.println("Хотите продолжить вычисления? [yes/no]: ");
-        // yesNo = scanner.nextLine();
+        Scanner sc = new Scanner(System.in);
+        while (true) {
+            System.out.print("Введите первое число: ");
+            calc.setInputA(sc.nextDouble());
+            sc.nextLine();
+            System.out.print("Введите знак математической операции: ");
+            while (calc.isSign() != true) {
+                calc.setSign(sc.nextLine().charAt(0));
+            }
+            calc.setIsSign(false);
+            System.out.print("Введите второе число: ");
+            calc.setInputB(sc.nextDouble());
+            System.out.printf("Результат вычисления: %.3f\n", calc.check());
+            // sc.nextLine();
+            // while (!sc.nextLine().equals("yes") && !sc.nextLine().equals("no")); {
+            //     System.out.print("Хотите продолжить вычисления? [yes/no]:");
+            // }
+            calc.yn();
+            if (sc.nextLine().equals("no")) {
+                break;
+            }
+        }
     }
 }

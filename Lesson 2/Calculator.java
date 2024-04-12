@@ -1,81 +1,94 @@
+import java.util.Scanner;
+
 public class Calculator {
-    public int inputA;
-    public int inputB;
-    public int result;
-    public String sign;
+    public double inputA;
+    public double inputB;
+    public double result;
+    public char sign;
     public String yesNo;
-    public boolean isSign; //= sign == "+";// || sign == "-" || sign == "*" || sign == "/" || sign == "%" || sign == "^";
+    public boolean isSign;
 
-    // public Calculator(double inputA, double inputB, double result, String sign) {
-    //     this.inputA = inputA;
-    //     this.inputB = inputB;
-    //     this.result = result;
-    //     this.sign = sign;
-    //     this.yesNo = yesNo;
-    // }
-
-    public void setInputA(int inputA) {
+    public void setInputA(double inputA) {
         this.inputA = inputA;
     }
 
-    public void setInputB(int inputB) {
+    public void setInputB(double inputB) {
         this.inputB = inputB;
     }
 
-    public int getResult() {
-        return result;
-    }
-
-    public void setResult(int result) {
-        this.result = result;
-    }
-
-    public String getSign() {
+    public char getSign() {
         return sign;
     }
 
-    public void setSign(String sign) {
-        if (sign == "+" || sign == "-" || sign == "*" || sign == "/" || sign == "%" || sign == "^") {
+    public void setSign(char sign) {
+        if (sign == '-' || sign == '+' || sign == '*' || sign == '/' || sign == '%' || sign == '^') {
+            this.sign = sign;
             isSign = true;
-            
         } else {
-            System.out.print("Неверно задан знак мат. операции!\n" +
-                    "Выберите из списка [+ - * / % ^] : ");
+            System.out.print("Неверно задан знак математической операции!\n" +
+                    "Выберите из списка [+ - * / % ^] и введите снова: ");
         }
-        this.sign = sign;
+    }
+
+    
+
+    public void setYesNo(String yesNo) {
+        if (yesNo.equals("yes") || yesNo.equals("no")) {
+            this.yesNo = yesNo;
+        } else {
+            System.out.print("Ошибка");
+        }
+    }
+
+    public String getYesNo() {
+        // System.out.println(yesNo);
+        return yesNo;
     }
 
     public boolean isSign() {
         return isSign;
     }
 
-    public int check() {
+    public void setIsSign(boolean isSign) {
+        this.isSign = isSign;
+    }
+
+    public double check() {
         switch (sign) {
-            case "+":
+            case '+':
                 result = inputA + inputB;
                 break;
-            case "-":
+            case '-':
                 result = inputA - inputB;
                 break;
-            case "*":
+            case '*':
                 result = inputA * inputB;
                 break;
-            case "/":
+            case '/':
                 result = inputA / inputB;
                 break;
-            case "^":
-                for (int i = 0; i < inputB; i++) {
+            case '^':
+                result = 1;
+                for (double i = 0; i < inputB; i++) {
                     result *= inputA;
                 }
                 break;
-            case "%":
+            case '%':
                 result = inputA % inputB;
-                break;
-            default:
-                
                 break;
         }
         return result;
+    }
 
+    public void yn() {
+        Scanner sc = new Scanner(System.in);
+        String yes = "yes";
+        String no = "no";
+        String text = sc.nextLine();
+        while (text.equals(yes) || text.equals(no)) {
+
+            System.out.print("Хотите продолжить вычисления? [yes/no]: ");
+        }
+        // sc.close();
     }
 }
