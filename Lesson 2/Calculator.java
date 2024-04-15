@@ -5,7 +5,6 @@ public class Calculator {
     public double inputB;
     public double result;
     public char sign;
-    public String yesNo;
     public boolean isSign;
 
     public void setInputA(double inputA) {
@@ -30,21 +29,6 @@ public class Calculator {
         }
     }
 
-    
-
-    public void setYesNo(String yesNo) {
-        if (yesNo.equals("yes") || yesNo.equals("no")) {
-            this.yesNo = yesNo;
-        } else {
-            System.out.print("Ошибка");
-        }
-    }
-
-    public String getYesNo() {
-        // System.out.println(yesNo);
-        return yesNo;
-    }
-
     public boolean isSign() {
         return isSign;
     }
@@ -53,7 +37,7 @@ public class Calculator {
         this.isSign = isSign;
     }
 
-    public double check() {
+    public double checkSign() {
         switch (sign) {
             case '+':
                 result = inputA + inputB;
@@ -78,17 +62,5 @@ public class Calculator {
                 break;
         }
         return result;
-    }
-
-    public void yn() {
-        Scanner sc = new Scanner(System.in);
-        String yes = "yes";
-        String no = "no";
-        String text = sc.nextLine();
-        while (text.equals(yes) || text.equals(no)) {
-
-            System.out.print("Хотите продолжить вычисления? [yes/no]: ");
-        }
-        // sc.close();
     }
 }
