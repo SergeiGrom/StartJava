@@ -105,6 +105,5 @@ public class Jaeger {
 
     public void attack() {
         System.out.println("Destroy target: accepted");
-    } 
-
+    }
 }
