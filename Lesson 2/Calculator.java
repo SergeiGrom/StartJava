@@ -1,17 +1,15 @@
 import java.util.Scanner;
 
 public class Calculator {
-    public double inputA;
-    public double inputB;
-    public double result;
+    public int inputA;
+    public int inputB;
     public char sign;
-    public boolean isSign;
 
-    public void setInputA(double inputA) {
+    public void setInputA(int inputA) {
         this.inputA = inputA;
     }
 
-    public void setInputB(double inputB) {
+    public void setInputB(int inputB) {
         this.inputB = inputB;
     }
 
@@ -19,25 +17,17 @@ public class Calculator {
         return sign;
     }
 
-    public void setSign(char sign) {
+    public boolean setSign(char sign) {
         if (sign == '-' || sign == '+' || sign == '*' || sign == '/' || sign == '%' || sign == '^') {
             this.sign = sign;
-            isSign = true;
+            return true;
         } else {
-            System.out.print("Неверно задан знак математической операции!\n" +
-                    "Выберите из списка [+ - * / % ^] и введите снова: ");
+            return false;
         }
     }
 
-    public boolean isSign() {
-        return isSign;
-    }
-
-    public void setIsSign(boolean isSign) {
-        this.isSign = isSign;
-    }
-
-    public double checkSign() {
+    public int calculate() {
+        int result = 0;
         switch (sign) {
             case '+':
                 result = inputA + inputB;
@@ -53,7 +43,7 @@ public class Calculator {
                 break;
             case '^':
                 result = 1;
-                for (double i = 0; i < inputB; i++) {
+                for (int i = 0; i < inputB; i++) {
                     result *= inputA;
                 }
                 break;
