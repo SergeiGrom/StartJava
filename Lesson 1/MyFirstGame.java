@@ -16,6 +16,6 @@ public class MyFirstGame {
                 playerNum += middle;
             }
         }
-        System.out.println("!!!ВЫ ПОБЕДИЛИ!!!");
+        System.out.printf("Введено число %d\n!!!ВЫ ПОБЕДИЛИ!!!", playerNum);
     }
 }
