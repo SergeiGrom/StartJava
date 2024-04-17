@@ -18,29 +18,21 @@ public class Calculator {
     }
 
     public boolean setSign(char sign) {
-        if (sign == '-' || sign == '+' || sign == '*' || sign == '/' || sign == '%' || sign == '^') {
-            this.sign = sign;
-            return true;
-        } else {
-            return false;
-        }
+    this.sign = sign;
+    return (sign == '-' || sign == '+' || sign == '*' || sign == '/' || sign == '%' || sign == '^') ? true : false;
     }
 
     public int calculate() {
         int result = 0;
         switch (sign) {
             case '+':
-                result = inputA + inputB;
-                break;
+                return inputA + inputB;
             case '-':
-                result = inputA - inputB;
-                break;
+                return inputA - inputB;
             case '*':
-                result = inputA * inputB;
-                break;
+                return inputA * inputB;
             case '/':
-                result = inputA / inputB;
-                break;
+                return inputA / inputB;
             case '^':
                 result = 1;
                 for (int i = 0; i < inputB; i++) {
@@ -48,8 +40,7 @@ public class Calculator {
                 }
                 break;
             case '%':
-                result = inputA % inputB;
-                break;
+                return inputA % inputB;
         }
         return result;
     }
