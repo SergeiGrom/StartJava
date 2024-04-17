@@ -18,8 +18,10 @@ public class Calculator {
     }
 
     public boolean setSign(char sign) {
-        this.sign = sign;
-        return (sign == '-' || sign == '+' || sign == '*' || sign == '/' || sign == '%' || sign == '^') ? true : false;
+        if (sign == '-' || sign == '+' || sign == '*' || sign == '/' || sign == '%' || sign == '^') {
+            this.sign = sign;
+        } 
+        return (sign == '-' || sign == '+' || sign == '*' || sign == '/' || sign == '%' || sign == '^');
     }
 
     public int calculate() {

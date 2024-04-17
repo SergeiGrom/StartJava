@@ -1,20 +1,30 @@
+import java.util.Scanner;
+
 public class GuessNumber {
-    int max = 100;
-    int hiddenNum = 1 + (int) (Math.random() * max);
-    int playerNum = max;
-    int middle = (int) Math.round(playerNum / 2.0);
-    public game() {
+    Player player1;
+    Player player2;
+
+    public GuessNumber(Player player1, Player player2) {
+        this.player1 = player1;
+        this.player2 = player2;
+    }
+
+    public void game() {
+        Scanner scanner = new Scanner(System.in);
+        int hiddenNum = 1 + (int) (Math.random() * 100);
+        int playerNum = 0;
+        int counter = 0;
         while (playerNum != hiddenNum) {
-            System.out.printf("Введено число %d\n", playerNum);
-            // middle = (int) Math.round(middle / 2.0);
+            counter += 1;
+            System.out.printf("\nХодит %s : ", counter % 2 != 0 ? player1.getName() : player2.getName());
+            playerNum = scanner.nextInt();
+            scanner.nextLine();
             if (playerNum > hiddenNum) {
-                System.out.printf("Число %d больше того, что загадал компьютер\n\n", playerNum);
-                playerNum -= middle;
+                System.out.printf("\nЧисло %d больше того, что загадал компьютер\n", playerNum);
             } else if (playerNum < hiddenNum) {
-                System.out.printf("Число %d меньше того, что загадал компьютер\n\n", playerNum);
-                playerNum += middle;
+                System.out.printf("\nЧисло %d меньше того, что загадал компьютер\n", playerNum);
             }
         }
-        System.out.println("!!!ВЫ ПОБЕДИЛИ!!!");
+        System.out.printf("\nПОБЕДИЛ : %s\n", counter % 2 != 0 ? player1.getName() : player2.getName());
     }
 }
