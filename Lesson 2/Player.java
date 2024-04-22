@@ -1,21 +1,21 @@
 public class Player {
-    public String name;
-    public int index;
+    private String name;
+    private int playerNum;
 
-    public Player(int index) {
-        name = "";
-        this.index = index;
+    public Player(String name, int playerNum) {
+        this.name = name;
+        this.playerNum = playerNum;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getPlayerNum() {
+        return playerNum;
     }
 
-    public int getIndex() {
-        return index;
+    public void setPlayerNum(int playerNum) {
+        this.playerNum = playerNum;
     }
 }
