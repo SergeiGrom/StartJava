@@ -5,9 +5,9 @@ public class GuessNumberTest {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\nИгра Угадай число от (0 до 100]:");
         System.out.printf("Введите имя 1 игрока : ");
-        Player player1 = new Player(scanner.nextLine(), 0);
+        Player player1 = new Player(scanner.nextLine());
         System.out.printf("Введите имя 2 игрока : ");
-        Player player2 = new Player(scanner.nextLine(), 0);
+        Player player2 = new Player(scanner.nextLine());
         GuessNumber game = new GuessNumber(player1, player2);
         String exitGame;
         do {
