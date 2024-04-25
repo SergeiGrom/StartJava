@@ -3,6 +3,7 @@ import java.util.Scanner;
 public class GuessNumber {
     private Player player1;
     private Player player2;
+    Scanner scanner = new Scanner(System.in);
 
     public GuessNumber(Player player1, Player player2) {
         this.player1 = player1;
@@ -11,21 +12,22 @@ public class GuessNumber {
 
     public void start() {
         int hiddenNum = 1 + (int) (Math.random() * 100);
-        Scanner scanner = new Scanner(System.in);
         while (true) {
-            System.out.printf("\nХодит %s.\nВведите число: ", player1.getName());
-            player1.setNumber(scanner.nextInt());
-            scanner.nextLine();
+            inputNumber(player1);
             if (isGussed(player1, hiddenNum)) {
                 break;
             }
-            System.out.printf("\nХодит %s.\nВведите число: ", player2.getName());
-            player2.setNumber(scanner.nextInt());
-            scanner.nextLine();
+            inputNumber(player2);
             if (isGussed(player2, hiddenNum)) {
                 break;
             }
         }
+    }
+
+    public void inputNumber(Player player) {
+        System.out.printf("\nХодит %s.\nВведите число: ", player.getName());
+            player.setNumber(scanner.nextInt());
+            scanner.nextLine();
     }
 
     public boolean isGussed(Player player, int hiddenNum) {
@@ -37,4 +39,5 @@ public class GuessNumber {
                 player.getNumber() > hiddenNum ? "больше" : "меньше");
         return false;
     }
+
 }
