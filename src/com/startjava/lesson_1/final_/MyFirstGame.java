@@ -1,3 +1,5 @@
+package com.startjava.lesson_1.final_;
+
 public class MyFirstGame {
     public static void main(String[] args) {
         System.out.println("Игра Угадай число от (0 до 100]:");
