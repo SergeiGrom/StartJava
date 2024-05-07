@@ -1,4 +1,4 @@
-package com.startjava.lesson_2_3.guess;
+package com.startjava.lesson_2_3_4.guess;
 
 import java.util.Scanner;
 
@@ -28,8 +28,8 @@ public class GuessNumber {
 
     public void inputNumber(Player player) {
         System.out.printf("\nХодит %s.\nВведите число: ", player.getName());
-            player.setNumber(scanner.nextInt());
-            scanner.nextLine();
+        player.setNumber(scanner.nextInt());
+        scanner.nextLine();
     }
 
     public boolean isGussed(Player player, int hiddenNum) {
@@ -41,5 +41,4 @@ public class GuessNumber {
                 player.getNumber() > hiddenNum ? "больше" : "меньше");
         return false;
     }
-
 }

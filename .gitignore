@@ -1,3 +1,6 @@
 */out
 *.class
-*startjava_checks.xml
+*.xml
+*options
+*optionsj
+*.iml

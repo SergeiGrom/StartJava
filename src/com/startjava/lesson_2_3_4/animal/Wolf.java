@@ -1,4 +1,4 @@
-package com.startjava.lesson_2_3.animal;
+package com.startjava.lesson_2_3_4.animal;
 
 public class Wolf {
     private String sex;
@@ -60,7 +60,7 @@ public class Wolf {
     }
 
     public void move() {
-        System.out.println("Move");;
+        System.out.println("Move");
     }
 
     public void sit() {
