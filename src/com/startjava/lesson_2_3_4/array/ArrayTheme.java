@@ -6,7 +6,7 @@ import java.util.Arrays;
  * Задачи на тему: “Массивы. Цикл for-each”
  *
  * @author Sergei Grom
- * @version dated May 06, 2024
+ * @version dated May 08, 2024
  */
 
 public class ArrayTheme {
@@ -15,8 +15,8 @@ public class ArrayTheme {
         arrayCountFactorial();
         arrayIndexDelete();
         arrayAlphabetReverse();
-        /*arrayUniqueNumbers();
-        gameHangmanStart();
+        arrayUniqueNumbers();
+        /*gameHangmanStart();
         typewriterTextOutput();*/
     }
 
@@ -84,15 +84,49 @@ public class ArrayTheme {
         System.out.println("\n4. Вывод алфавита лесенкой");
         char[] src = new char[26];
         int len = src.length;
-        char c = 'A';
+        char letter = 'A';
         for (int i = 0; i < len; i++) {
-            src [i] = c++;
+            src [i] = letter++;
         }
         for (int i = 0; i < len; i++) {
             for (int j = 0; j <= i; j++) {
                 System.out.print(src[len - 1 - j]);
             }
             System.out.println();
+        }
+    }
+
+    public static void arrayUniqueNumbers() {
+        System.out.println("\n5. Заполнение массива уникальными числами :");
+        int[] src = new int[39];
+        int len = src.length;
+        for (int i = 0; i < len; i++) {
+            boolean flag = true;
+            while (flag) {
+                flag = false;
+                src[i] = (int) (60 + Math.random() * 40);
+                for (int j = 0; j < i; j++) {
+                    if (src[j] == src[i]) {
+                        flag = true;
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < len; i++) {
+            for (int j = 0; j <= i; j++) {
+                if (src[j] > src[i]) {
+                    int temp = src[j];
+                    src[j] = src[i];
+                    src[i] = temp;
+                }
+            }
+        }
+        for (int i = 0; i < len - 1; i++) {
+            src[i] = src[i + 1];
+            System.out.print(src[i] + " ");
+            if ((i + 1) % 10 == 0) {
+                System.out.println();
+            }
         }
     }
 }
