@@ -39,8 +39,11 @@ public class ArrayTheme {
         int[] src = new int[10];
         int len = src.length;
         int factorial = 1;
-        for (int i = 1; i < len - 1; i++) {
+        for (int i = 0; i < len; i++) {
             src[i] = i;
+            if (i == 0 || i == len -1) {
+                continue;
+            }
             factorial *= src[i];
             System.out.print(i != (len - 2) ? src[i] + " * " : src[i]);
         }
