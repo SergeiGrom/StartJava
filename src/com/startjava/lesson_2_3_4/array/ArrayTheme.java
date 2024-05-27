@@ -190,12 +190,10 @@ public class ArrayTheme {
                 }
             }
             /*
-             Проверка условия победы\поражения.
-             Тк для удобства чтения буквы maskedWord разделены, сравниваем также разделяя буквы загаданного слова.
+             Проверка условия победы.
+             Тк для удобства чтения буквы maskedWord разделены пробелом, сравниваем также разделяя
+             буквы загаданного слова.
             */
-            if (attempts == 0) {
-                System.out.println("Вы проиграли.\nЗагаданное слово: " + hiddenWord.toUpperCase());
-            }
             maskedWord = arrayToString(maskedLetters);
             String checkWord = arrayToString(hiddenLetters);
             if (checkWord.equalsIgnoreCase(maskedWord)) {
@@ -203,6 +201,7 @@ public class ArrayTheme {
                 break;
             }
         }
+        System.out.println("Вы проиграли.\nЗагаданное слово: " + hiddenWord.toUpperCase());
     }
 
     private static void openMasked(char[] maskedLetters, char[] hiddenLetters, char inputChar) {
