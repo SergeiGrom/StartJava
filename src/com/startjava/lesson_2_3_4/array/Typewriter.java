@@ -17,9 +17,9 @@ public class Typewriter {
             System.out.println("Ошибка. Пустая строка!");
         } else {
             String[] words = line.split("\\s+");
-            int minWordIndex = Math.min(minLengthIndex(words), maxLengthIndex(words));
-            int maxWordIndex = Math.max(minLengthIndex(words), maxLengthIndex(words));
-            for (int i = minWordIndex; i <= maxWordIndex; i++) {
+            int startUpperCaseIndex = Math.min(minLengthIndex(words), maxLengthIndex(words));
+            int endUpperCaseIndex = Math.max(minLengthIndex(words), maxLengthIndex(words));
+            for (int i = startUpperCaseIndex; i <= endUpperCaseIndex; i++) {
                 words[i] = words[i].toUpperCase();
             }
             for (String word : words) {
