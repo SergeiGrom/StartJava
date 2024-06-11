@@ -10,7 +10,7 @@ public class Pyramid {
 
     private static void displayPyramid(char start, char end, boolean isAscending) {
         // Приводим к унифицированному виду. start < end в ASCII.
-        if ((int) start > (int) end) {
+        if (start > end) {
             start += end;
             end = (char) (start - end);
             start -= end;
@@ -19,8 +19,9 @@ public class Pyramid {
         // Выводим символы пирамидой в указанном порядке. Строки формируем StringBuilder, согласно заданию.
         char toPrint = 0;
         int i = 0;
+        StringBuilder line = new StringBuilder();
         while (toPrint != (isAscending ? end : start)) {
-            StringBuilder line = new StringBuilder();
+            line.setLength(0);
             toPrint = isAscending ? (char) (start + i) : (char) (end - i);
             line.append(" ".repeat(end - start - i));
             line.append(String.valueOf(toPrint).repeat(i * 2 + 1));

@@ -4,61 +4,55 @@ public class Typewriter {
     public static void main(String[] args) throws InterruptedException {
         String line1 = "Java - это C++, из которого убрали все пистолеты, ножи и дубинки.\n" +
                 "- James Gosling";
-        prtCharsDelayed(line1);
+        printOnTypewriter(line1);
         String line2 = "Чтобы написать чистый код, мы сначала пишем грязный код, затем рефакторим его.\n" +
                 "- Robert Martin";
-        prtCharsDelayed(line2);
-        prtCharsDelayed("");
-        prtCharsDelayed(null);
+        printOnTypewriter(line2);
+        printOnTypewriter("");
+        printOnTypewriter(null);
     }
 
-    private static void prtCharsDelayed(String line) throws InterruptedException {
+    private static void printOnTypewriter(String line) throws InterruptedException {
         if (line == null || line.isBlank()) {
-            System.out.println("Ошибка. Пустая строка!");
-        } else {
-            String[] words = line.split("\\s+");
-            int startUpperCaseIndex = Math.min(minLengthIndex(words), maxLengthIndex(words));
-            int endUpperCaseIndex = Math.max(minLengthIndex(words), maxLengthIndex(words));
-            for (int i = startUpperCaseIndex; i <= endUpperCaseIndex; i++) {
-                words[i] = words[i].toUpperCase();
-            }
-            for (String word : words) {
-                for (int i = 0; i < word.length(); i++) {
-                    System.out.print(word.charAt(i));
-                    if (word.charAt(i) == '.') {
-                        System.out.println();
-                    }
-                    Thread.sleep(150);
-                }
-                System.out.print(" ");
-            }
-            System.out.println();
+            System.out.println("Ошибка. Пустая строка!\n");
+            return;
         }
-    }
-
-    private static int minLengthIndex(String[] words) {
-        int index = 0;
-        int minLen = Integer.MAX_VALUE;
+        // ищем индекс самого короткого и длинного слов без учета знаков препинания
+        String[] words = line.split(" ");
+        int minLengthIndex = 0;
+        int maxLengthIndex = 0;
+        int minLength = Integer.MAX_VALUE;
+        int maxLength = Integer.MIN_VALUE;
         for (int i = 0; i < words.length; i++) {
             int length = words[i].replaceAll("\\p{P}", "").length();
-            if (length < minLen && length != 0) {
-                minLen = length;
-                index = i;
+            if (length == 0) {
+                continue;
+            }
+            if (length < minLength) {
+                minLength = length;
+                minLengthIndex = i;
+            }
+            if (length > maxLength) {
+                maxLength = length;
+                maxLengthIndex = i;
             }
         }
-        return index;
-    }
 
-    private static int maxLengthIndex(String[] words) {
-        int index = 0;
-        int maxLen = Integer.MIN_VALUE;
-        for (int i = 0; i < words.length; i++) {
-            int length = words[i].replaceAll("\\p{P}", "").length();
-            if (length > maxLen && length != 0) {
-                maxLen = length;
-                index = i;
-            }
+        // приводим к верхнему регистру слова предложения в границах слов, найденных выше
+        int startUpperCase = Math.min(minLengthIndex, maxLengthIndex);
+        int endUpperCase = Math.max(minLengthIndex, maxLengthIndex);
+        for (int i = startUpperCase; i <= endUpperCase; i++) {
+            words[i] = words[i].toUpperCase();
         }
-        return index;
+
+        // выводим на экран с эффектом печатающей машинки
+        for (String word : words) {
+            for (int i = 0; i < word.length(); i++) {
+                System.out.print(word.charAt(i));
+                Thread.sleep(150);
+            }
+            System.out.print(" ");
+        }
+        System.out.println("\n");
     }
 }
