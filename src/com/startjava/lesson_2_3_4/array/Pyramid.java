@@ -21,12 +21,12 @@ public class Pyramid {
         int i = 0;
         StringBuilder line = new StringBuilder();
         while (toPrint != (isAscending ? end : start)) {
-            line.setLength(0);
             toPrint = isAscending ? (char) (start + i) : (char) (end - i);
             line.append(" ".repeat(end - start - i));
             line.append(String.valueOf(toPrint).repeat(i * 2 + 1));
             System.out.println(line);
             i++;
+            line.setLength(0);
         }
     }
 }

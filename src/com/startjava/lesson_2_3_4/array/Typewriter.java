@@ -21,19 +21,17 @@ public class Typewriter {
         String[] words = line.split(" ");
         int minLengthIndex = 0;
         int maxLengthIndex = 0;
-        int minLength = Integer.MAX_VALUE;
-        int maxLength = Integer.MIN_VALUE;
+        int shortestWord = Integer.MAX_VALUE;
+        int longestWord = Integer.MIN_VALUE;
         for (int i = 0; i < words.length; i++) {
             int length = words[i].replaceAll("\\p{P}", "").length();
-            if (length == 0) {
-                continue;
-            }
-            if (length < minLength) {
-                minLength = length;
+            if (length == 0) continue;
+            if (length < shortestWord) {
+                shortestWord = length;
                 minLengthIndex = i;
             }
-            if (length > maxLength) {
-                maxLength = length;
+            if (length > longestWord) {
+                longestWord = length;
                 maxLengthIndex = i;
             }
         }

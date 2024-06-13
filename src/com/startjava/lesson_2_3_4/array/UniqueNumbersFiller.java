@@ -3,7 +3,7 @@ package com.startjava.lesson_2_3_4.array;
 public class UniqueNumbersFiller {
     public static void main(String[] args) {
         System.out.println("5. Заполнение массива уникальными числами :");
-        addSortedUniqueNumbers(23, -10, 20);
+        addSortedUniqueNumbers(11, -30, 20);
         addSortedUniqueNumbers(10, 60, 100);
         addSortedUniqueNumbers(0, 34, -34);
         addSortedUniqueNumbers(-8, 0, 0);
@@ -29,11 +29,16 @@ public class UniqueNumbersFiller {
         sortAsc(uniqueNumbers);
 
         // выводим numbersInLine значений в строке, согласно условию
-        for (int i = 0; i < length; i++) {
-            System.out.print(uniqueNumbers[i] + " ");
-            if ((i + 1) % numbersInLine == 0) {
-                System.out.println();
+        int k = 0;
+        for (int i = 0; i < Math.ceil((double) length / numbersInLine); i++) {
+            for (int j = 0; j < numbersInLine; j++) {
+                System.out.printf("%4d", uniqueNumbers[k]);
+                k++;
+                if (k == length) {
+                    break;
+                }
             }
+            System.out.println();
         }
         System.out.println();
     }
