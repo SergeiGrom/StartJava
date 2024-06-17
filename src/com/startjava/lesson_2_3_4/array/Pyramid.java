@@ -21,7 +21,7 @@ public class Pyramid {
         int i = 0;
         StringBuilder line = new StringBuilder();
         while (toPrint != (isAscending ? end : start)) {
-            toPrint = isAscending ? (char) (start + i) : (char) (end - i);
+            toPrint = (char) (isAscending ? (start + i) : (end - i));
             line.append(" ".repeat(end - start - i));
             line.append(String.valueOf(toPrint).repeat(i * 2 + 1));
             System.out.println(line);
