@@ -1,28 +1,51 @@
 package com.startjava.lesson_2_3_4.calculator;
 
+import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class CalculatorTest {
     public static void main(String[] args) {
-        Calculator calc = new Calculator();
+        System.out.println("Калькулятор.");
         Scanner sc = new Scanner(System.in);
-        String exitCalc;
-        do {
-            System.out.print("Введите первое число: ");
-            calc.setInputA(sc.nextInt());
-            sc.nextLine();
-            do {
-                System.out.print("Введите знак математической операции [+ - * / % ^] : ");
-            } while (!calc.setSign(sc.nextLine().charAt(0)));
-            System.out.print("Введите второе число: ");
-            calc.setInputB(sc.nextInt());
-            System.out.printf("Результат вычисления: %d\n", calc.calculate());
-            sc.nextLine();
-            do {
-                System.out.print("Хотите продолжить вычисления? [yes/no]: ");
-                exitCalc = sc.nextLine();
-            } while (!exitCalc.equals("yes") && !exitCalc.equals("no"));
-        } while (!exitCalc.equals("no"));
+        double result;
+        boolean isExit = false;
+        while (!isExit) {
+            System.out.print("Введите выражение: ");
+            try {
+                result = Calculator.calculate(sc.nextLine());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                continue;
+            }
+            String resultPattern = result % 1 != 0 ? "#,###,###,###.###" : "#,###,###,###";
+            DecimalFormat df = new DecimalFormat(resultPattern);
+            System.out.printf("Результат: %d %s %d = %s", Calculator.inputA, Calculator.sign,
+                    Calculator.inputB, df.format(result));
+            System.out.print("\nХотите продолжить? [yes / no]: ");
+            while (true) {
+                try {
+                    isExit = exit(sc);
+                    break;
+                } catch (Exception e) {
+                    System.out.print(e.getMessage());
+                }
+            }
+        }
         sc.close();
     }
+
+    public static boolean exit(Scanner sc) throws RuntimeException {
+        String answer = sc.nextLine().toLowerCase();
+        return switch (answer) {
+            case "yes" -> false;
+            case "no" -> true;
+            default -> throw new IllegalStateException("Введите корректный ответ [yes / no]: ");
+        };
+    }
 }
+    /*
+        Проверка с использованием Nan выглядела так:
+        if (Double.isNaN(result) || Double.isInfinite(result)) {
+            System.out.println("Не допустимая мат. операция!");
+        }*/
+

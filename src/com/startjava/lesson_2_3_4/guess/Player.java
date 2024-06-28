@@ -1,22 +1,65 @@
 package com.startjava.lesson_2_3_4.guess;
 
-public class Player {
-    private String name;
-    private int number;
+import java.util.Arrays;
 
-    public Player(String name) {
-        this.name = name;
+public class Player {
+    static final int ATTEMPTS_MAX = 3;
+    private int attempts = 0;
+    private String name;
+    private int[] inputNums = new int[ATTEMPTS_MAX];
+    private int inputNum;
+    private int wins = 0;
+
+    public int getAttempts() {
+        return attempts;
+    }
+
+    public void setAttempts(int attempts) {
+        this.attempts = attempts;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getNumber() {
-        return number;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public String getInputNums() {
+        int[] copyInputNums = Arrays.copyOf(inputNums, attempts);
+        return Arrays.toString(copyInputNums).replaceAll("[\\[\\]]", "");
+    }
+
+    public void setInputNums(int number, int index) {
+        this.inputNums[index] = number;
+    }
+
+    public int getInputNum() {
+        return inputNum;
+    }
+
+    public void setInputNum(int inputNum) throws RuntimeException {
+        if (inputNum < 1 || inputNum > 100) {
+            throw new IllegalArgumentException("Число должно входить в интервал [1, 100].\nПопробуйте еще раз: ");
+        }
+        this.inputNum = inputNum;
+    }
+
+    public int getWins() {
+        return wins;
+    }
+
+    public void setWins(int wins) {
+        this.wins = wins;
+    }
+
+    public void cleanArray() {
+        Arrays.fill(inputNums, 0);
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

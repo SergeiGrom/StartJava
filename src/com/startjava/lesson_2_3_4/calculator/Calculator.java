@@ -1,46 +1,32 @@
 package com.startjava.lesson_2_3_4.calculator;
 
 public class Calculator {
-    public int inputA;
-    public int inputB;
-    public char sign;
+    static int inputA;
+    static int inputB;
+    static String sign;
+    static final int ARR_LENGTH = 3;
 
-    public void setInputA(int inputA) {
-        this.inputA = inputA;
-    }
-
-    public void setInputB(int inputB) {
-        this.inputB = inputB;
-    }
-
-    public boolean setSign(char sign) {
-        if (sign == '-' || sign == '+' || sign == '*' || sign == '/' || sign == '%' || sign == '^') {
-            this.sign = sign;
-            return true;
+    public static double calculate(String input) throws RuntimeException {
+        String[] calcMembers = input.trim().split(" +");
+        if (calcMembers.length != ARR_LENGTH) {
+            throw new RuntimeException("Ошибка! Введите в формате [A + B].");
         }
-        return false;
-    }
-
-    public int calculate() {
-        int result = 0;
-        switch (sign) {
-            case '+':
-                return inputA + inputB;
-            case '-':
-                return inputA - inputB;
-            case '*':
-                return inputA * inputB;
-            case '/':
-                return inputA / inputB;
-            case '^':
-                result = 1;
-                for (int i = 0; i < inputB; i++) {
-                    result *= inputA;
-                }
-                break;
-            case '%':
-                return inputA % inputB;
+        try {
+            inputA = Integer.parseInt(calcMembers[0]);
+            inputB = Integer.parseInt(calcMembers[2]);
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Ошибка! Введите целые числа.");
         }
-        return result;
+        sign = calcMembers[1];
+        return switch (sign) {
+            case "+" -> inputA + inputB;
+            case "-" -> inputA - inputB;
+            case "*" -> inputA * inputB;
+            case "/" -> (double) inputA / inputB;
+            case "^" -> Math.pow(inputA, inputB);
+            case "%" -> Math.floorMod(inputA, inputB);
+            default -> throw new IllegalStateException("Ошибка! Используйте только операции [- + * / % ^]");
+        };
     }
 }
+
