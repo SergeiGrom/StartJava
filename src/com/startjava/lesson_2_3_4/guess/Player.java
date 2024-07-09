@@ -54,7 +54,7 @@ public class Player {
         this.wins = wins;
     }
 
-    public void cleanArray() {
+    public void cleanInputNums() {
         Arrays.fill(inputNums, 0);
     }
 

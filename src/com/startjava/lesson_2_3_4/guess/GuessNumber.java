@@ -82,9 +82,9 @@ public class GuessNumber {
         }
     }
 
-    public void clean(Player[] players) {
+    public void setDefault(Player[] players) {
         for (Player player : players) {
-            player.cleanArray();
+            player.cleanInputNums();
             player.setAttempts(0);
         }
     }
@@ -93,11 +93,11 @@ public class GuessNumber {
         String end;
         if (players[0].getWins() == players[1].getWins() && players[1].getWins() == players[2].getWins()) {
             end = "ничья!";
-        } else if (players[0].getWins() == players[1].getWins()) {
+        } else if (players[0].getWins() == players[1].getWins() && players[0].getWins() != 0) {
             end = "ничья между " + player1.getName() + " и " + player2.getName();
-        } else if (players[0].getWins() == players[2].getWins()) {
+        } else if (players[0].getWins() == players[2].getWins() && players[0].getWins() != 0) {
             end = "ничья между " + player1.getName() + " и " + player3.getName();
-        } else if (players[1].getWins() == players[2].getWins()) {
+        } else if (players[1].getWins() == players[2].getWins() && players[1].getWins() != 0) {
             end = "ничья между " + player2.getName() + " и " + player3.getName();
         } else {
             int winner = 0;
