@@ -4,48 +4,40 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class CalculatorTest {
+    static final String YES = "yes";
+    static final String NO = "no";
+
     public static void main(String[] args) {
         System.out.println("Калькулятор.");
         Scanner sc = new Scanner(System.in);
-        double result;
-        boolean isExit = false;
-        while (!isExit) {
-            System.out.print("Введите выражение: ");
-            try {
-                result = Calculator.calculate(sc.nextLine());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                continue;
-            }
-            String resultPattern = result % 1 != 0 ? "#,###,###,###.###" : "#,###,###,###";
-            DecimalFormat df = new DecimalFormat(resultPattern);
-            System.out.printf("Результат: %d %s %d = %s", Calculator.inputA, Calculator.sign,
-                    Calculator.inputB, df.format(result));
-            System.out.print("\nХотите продолжить? [yes / no]: ");
-            while (true) {
+        double result = 0;
+        String answer = YES;
+        do {
+            if (YES.equals(answer)) {
+                System.out.print("Введите выражение: ");
                 try {
-                    isExit = exit(sc);
-                    break;
-                } catch (Exception e) {
-                    System.out.print(e.getMessage());
+                    result = Calculator.calculate(sc.nextLine());
+                } catch (NullPointerException e) {
+                    System.out.println(e.getMessage());
+                } catch (RuntimeException e) {
+                    System.out.println(e.getMessage());
+                    continue;
                 }
+                displayResult(result);
+                System.out.print("\nХотите продолжить? [yes / no]: ");
+            } else {
+                System.out.print("Введите корректный ответ [yes / no]: ");
             }
-        }
+            answer = sc.nextLine();
+        } while (!NO.equals(answer));
         sc.close();
     }
 
-    public static boolean exit(Scanner sc) throws RuntimeException {
-        String answer = sc.nextLine().toLowerCase();
-        return switch (answer) {
-            case "yes" -> false;
-            case "no" -> true;
-            default -> throw new IllegalStateException("Введите корректный ответ [yes / no]: ");
-        };
+    private static void displayResult(double result) {
+        String resultPattern = result % 1 != 0 ? "#,###,###,###.###" : "#,###,###,###";
+        DecimalFormat df = new DecimalFormat(resultPattern);
+        System.out.printf("Результат: %d %s %d = %s", Calculator.getArg1(), Calculator.getSign(),
+                Calculator.getArg2(), df.format(result));
     }
 }
-    /*
-        Проверка с использованием Nan выглядела так:
-        if (Double.isNaN(result) || Double.isInfinite(result)) {
-            System.out.println("Не допустимая мат. операция!");
-        }*/
 

@@ -1,32 +1,56 @@
 package com.startjava.lesson_2_3_4.calculator;
 
 public class Calculator {
-    static int inputA;
-    static int inputB;
-    static String sign;
-    static final int ARR_LENGTH = 3;
+    private static int arg1;
+    private static int arg2;
+    private static String sign;
+    private static final int MATH_EXPRESSION_ELEMENTS = 3;
 
-    public static double calculate(String input) throws RuntimeException {
-        String[] calcMembers = input.trim().split(" +");
-        if (calcMembers.length != ARR_LENGTH) {
-            throw new RuntimeException("Ошибка! Введите в формате [A + B].");
+    private Calculator() {
+        throw new AssertionError("This class cannot be instantiated");
+    }
+
+    public static int getArg1() {
+        return arg1;
+    }
+
+    public static int getArg2() {
+        return arg2;
+    }
+
+    public static String getSign() {
+        return sign;
+    }
+
+    public static double calculate(String input) {
+        String[] mathExpressionElements = input.trim().split(" +");
+        if (mathExpressionElements.length != MATH_EXPRESSION_ELEMENTS) {
+            throw new RuntimeException("Ошибка! Введите, отделяя члены выражения пробелом.");
         }
         try {
-            inputA = Integer.parseInt(calcMembers[0]);
-            inputB = Integer.parseInt(calcMembers[2]);
+            arg1 = Integer.parseInt(mathExpressionElements[0]);
+            arg2 = Integer.parseInt(mathExpressionElements[2]);
         } catch (NumberFormatException e) {
             throw new NumberFormatException("Ошибка! Введите целые числа.");
         }
-        sign = calcMembers[1];
+        sign = mathExpressionElements[1];
         return switch (sign) {
-            case "+" -> inputA + inputB;
-            case "-" -> inputA - inputB;
-            case "*" -> inputA * inputB;
-            case "/" -> (double) inputA / inputB;
-            case "^" -> Math.pow(inputA, inputB);
-            case "%" -> Math.floorMod(inputA, inputB);
-            default -> throw new IllegalStateException("Ошибка! Используйте только операции [- + * / % ^]");
+            case "+" -> arg1 + arg2;
+            case "-" -> arg1 - arg2;
+            case "*" -> arg1 * arg2;
+            case "/" -> divide(arg1, arg2);
+            case "^" -> Math.pow(arg1, arg2);
+            case "%" -> Math.floorMod(arg1, arg2);
+            default -> throw new IllegalStateException("Ошибка! Используйте только операции - + * / % ^");
         };
     }
+
+    public static double divide(double arg1, double arg2) {
+        if (arg2 == 0.0) {
+            throw new ArithmeticException("Ошибка! На 0 делить нельзя.");
+        }
+        return arg1 / arg2;
+    }
 }
+
 
