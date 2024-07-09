@@ -59,7 +59,7 @@ public class GuessNumber {
                 player.setInputNum(scanner.nextInt());
                 scanner.nextLine();
                 break;
-            } catch (Exception e) {
+            } catch (RuntimeException e) {
                 System.out.print(e.getMessage());
             }
         }
