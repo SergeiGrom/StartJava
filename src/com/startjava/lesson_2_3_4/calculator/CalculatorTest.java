@@ -10,15 +10,13 @@ public class CalculatorTest {
     public static void main(String[] args) {
         System.out.println("Калькулятор.");
         Scanner sc = new Scanner(System.in);
-        double result = 0;
+        double result;
         String answer = YES;
         do {
             if (YES.equals(answer)) {
                 System.out.print("Введите выражение: ");
                 try {
                     result = Calculator.calculate(sc.nextLine());
-                } catch (NullPointerException e) {
-                    System.out.println(e.getMessage());
                 } catch (RuntimeException e) {
                     System.out.println(e.getMessage());
                     continue;

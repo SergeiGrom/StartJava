@@ -25,7 +25,7 @@ public class Calculator {
     public static double calculate(String input) {
         String[] mathExpressionElements = input.trim().split(" +");
         if (mathExpressionElements.length != MATH_EXPRESSION_ELEMENTS) {
-            throw new RuntimeException("Ошибка! Введите, отделяя члены выражения пробелом.");
+            throw new RuntimeException("Ошибка! Введите, разделяя мат.оператор и цифры пробелом.");
         }
         try {
             arg1 = Integer.parseInt(mathExpressionElements[0]);
