@@ -4,7 +4,7 @@ public class Calculator {
     private static int arg1;
     private static int arg2;
     private static String sign;
-    private static final int MATH_EXPRESSION_ELEMENTS = 3;
+    private static final int EXPRESSION_LENGTH = 3;
 
     private Calculator() {
         throw new AssertionError("This class cannot be instantiated");
@@ -22,30 +22,38 @@ public class Calculator {
         return sign;
     }
 
-    public static double calculate(String input) {
-        String[] mathExpressionElements = input.trim().split(" +");
-        if (mathExpressionElements.length != MATH_EXPRESSION_ELEMENTS) {
-            throw new RuntimeException("Ошибка! Введите, разделяя мат.оператор и цифры пробелом.");
-        }
-        try {
-            arg1 = Integer.parseInt(mathExpressionElements[0]);
-            arg2 = Integer.parseInt(mathExpressionElements[2]);
-        } catch (NumberFormatException e) {
-            throw new NumberFormatException("Ошибка! Введите целые числа.");
-        }
-        sign = mathExpressionElements[1];
+    public static double calculate(String inputExpression) {
+        String[] elements = inputExpression.trim().split(" +");
+        checkExpressionLength(elements);
+        checkIsIntegers(elements);
+        sign = elements[1];
         return switch (sign) {
             case "+" -> arg1 + arg2;
             case "-" -> arg1 - arg2;
             case "*" -> arg1 * arg2;
-            case "/" -> divide(arg1, arg2);
+            case "/" -> div(arg1, arg2);
             case "^" -> Math.pow(arg1, arg2);
             case "%" -> Math.floorMod(arg1, arg2);
             default -> throw new IllegalStateException("Ошибка! Используйте только операции - + * / % ^");
         };
     }
 
-    public static double divide(double arg1, double arg2) {
+    public static void checkExpressionLength(String[] elements) {
+        if (elements.length != EXPRESSION_LENGTH) {
+            throw new RuntimeException("Ошибка! Введите, разделяя мат.оператор и цифры пробелом.");
+        }
+    }
+
+    public static void checkIsIntegers(String[] elements) {
+        try {
+            arg1 = Integer.parseInt(elements[0]);
+            arg2 = Integer.parseInt(elements[2]);
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Ошибка! Введите целые числа.");
+        }
+    }
+
+    public static double div(double arg1, double arg2) {
         if (arg2 == 0.0) {
             throw new ArithmeticException("Ошибка! На 0 делить нельзя.");
         }

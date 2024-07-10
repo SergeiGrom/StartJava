@@ -4,8 +4,8 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class CalculatorTest {
-    static final String YES = "yes";
-    static final String NO = "no";
+    private static final String YES = "yes";
+    private static final String NO = "no";
 
     public static void main(String[] args) {
         System.out.println("Калькулятор.");
