@@ -4,11 +4,14 @@ import java.util.Arrays;
 
 public class Player {
     static final int ATTEMPTS_MAX = 10;
-    private int attempts = 0;
+    private int attempts;
     private String name;
     private int[] inputNums = new int[ATTEMPTS_MAX];
-    private int inputNum;
-    private int wins = 0;
+    private int wins;
+
+    public Player(String name) {
+        this.name = name;
+    }
 
     public int getAttempts() {
         return attempts;
@@ -22,28 +25,15 @@ public class Player {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getInputNums() {
-        int[] copyInputNums = Arrays.copyOf(inputNums, attempts);
-        return Arrays.toString(copyInputNums).replaceAll("[\\[\\]]", "");
+    public int[] getInputNums() {
+        return Arrays.copyOf(inputNums, attempts);
     }
 
     public void setInputNums(int number, int index) {
-        this.inputNums[index] = number;
-    }
-
-    public int getInputNum() {
-        return inputNum;
-    }
-
-    public void setInputNum(int inputNum) throws RuntimeException {
-        if (inputNum < 1 || inputNum > 100) {
+        if (number < 1 || number > 100) {
             throw new IllegalArgumentException("Число должно входить в интервал [1, 100].\nПопробуйте еще раз: ");
         }
-        this.inputNum = inputNum;
+        this.inputNums[index] = number;
     }
 
     public int getWins() {
@@ -55,7 +45,7 @@ public class Player {
     }
 
     public void cleanInputNums() {
-        Arrays.fill(inputNums, 0);
+        Arrays.fill(inputNums, 0, attempts, 0);
     }
 
     @Override
