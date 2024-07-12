@@ -9,7 +9,7 @@ public class GuessNumberTest {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.printf("\n\t\tИгра \"Угадай число\" (от 1 до %d).\n", GuessNumber.MAX_RANGE);
-        GuessNumber game = new GuessNumber(setName(scanner), setName(scanner), setName(scanner));
+        GuessNumber game = new GuessNumber(inputName(scanner), inputName(scanner), inputName(scanner));
         String answer = YES;
         do {
             if (YES.equals(answer)) {
@@ -23,7 +23,7 @@ public class GuessNumberTest {
         scanner.close();
     }
 
-    private static String setName(Scanner scanner) {
+    private static String inputName(Scanner scanner) {
         String name;
         while (true) {
             System.out.print("Введите имя игрока : ");

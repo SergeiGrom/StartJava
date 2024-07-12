@@ -3,12 +3,18 @@ package com.startjava.lesson_2_3_4.bookcase;
 import java.util.Scanner;
 
 public class Bookcase {
-    public static int booksNumber = 0;
-    public static Book[] books = new Book[10];
+    private static int booksNumber = 0;
+    private static Book[] books = new Book[10];
+    static Scanner sc = new Scanner(System.in);
 
-    public static void display(ConsoleUi ui) {
-        displayInfo(ui);
-        if (booksNumber == 0) return;
+    private Bookcase() {
+        throw new AssertionError("This class cannot be instantiated");
+    }
+
+    public static void displayBookcase() {
+        if (booksNumber == 0) {
+            return;
+        }
         int maxLine = maxInfoLength(booksNumber);
         String dash = "-";
         for (int i = 0; i < books.length; i++) {
@@ -18,85 +24,90 @@ public class Bookcase {
         }
     }
 
-    public static void add(Scanner sc, ConsoleUi ui) {
-        int emptyIndex = booksNumber;
-        if (emptyIndex == books.length) {
-            System.out.println(ui.fullBookcase);
+    public static void add() {
+        if (booksNumber == books.length) {
+            System.out.println("Шкаф полон.");
             return;
         }
-        books[emptyIndex] = new Book();
-        System.out.print(ui.setAuthor);
-        books[emptyIndex].setAuthor(sc.nextLine());
-        System.out.print(ui.setTitle);
-        books[emptyIndex].setTitle(sc.nextLine());
-        System.out.print(ui.setYearEstablishment);
-        books[emptyIndex].setYearEstablishment(sc.nextInt());
+        books[booksNumber] = new Book();
+        System.out.print("Введите имя автора: ");
+        books[booksNumber].setAuthor(sc.nextLine());
+        System.out.print("Введите название книги: ");
+        books[booksNumber].setTitle(sc.nextLine());
+        System.out.print("Введите год выпуска: ");
+        books[booksNumber].setYearEstablishment(sc.nextInt());
         sc.nextLine();
         booksNumber++;
-
-        displayBookInfo(ui, booksNumber, "add");
+        displayBookInfo(booksNumber, "add");
     }
 
-    public static void delete(Scanner sc, ConsoleUi ui) {
-        System.out.println(ui.chooseShelf);
-        boolean isCorrect = false;
+    public static void delete() {
+        if (booksNumber == 0) {
+            System.out.println("Шкаф пуст.");
+            return;
+        }
+        System.out.println("Введите номер полки: ");
         int input = sc.nextInt();
         sc.nextLine();
-        while (!isCorrect) {
+        while (true) {
             if (input < 1 || input > booksNumber) {
-                System.out.println(ui.wrongShelfInput + booksNumber);
-            }
-            isCorrect = true;
+                System.out.println("Неверно указан № полки. Занято полок: " + booksNumber);
+            } else break;
         }
-        if (booksNumber == books.length && input == booksNumber) {
-            displayBookInfo(ui, booksNumber, "delete");
+        if (input == books.length) {
+            displayBookInfo(booksNumber, "delete");
             books[books.length - 1] = null;
             booksNumber--;
             return;
         }
-        displayBookInfo(ui, input, "delete");
+        displayBookInfo(input, "delete");
         System.arraycopy(books, input, books, input - 1, booksNumber - input);
         books[booksNumber - 1] = null;
         booksNumber--;
     }
 
-    public static void clearAll(ConsoleUi ui) {
+    public static void deleteAll() {
+        if (booksNumber == 0) {
+            System.out.println("Шкаф пуст.");
+            return;
+        }
         for (int i = 0; i < booksNumber; ++i) {
             books[i] = null;
         }
-        System.out.println(ui.separator);
-        System.out.printf("%s %s %d%n", ui.emptyBookcase, ui.emptyShelves, books.length);
         booksNumber = 0;
+        System.out.println("Шкаф очищен.");
     }
 
-    public static void findByTitle(Scanner sc, ConsoleUi ui) {
-        System.out.print(ui.setAuthor);
+    public static void findByTitle() {
+        if (booksNumber == 0) {
+            displayBookcaseInfo();
+            return;
+        }
+        System.out.print("Введите название книги: ");
         String input = sc.nextLine().toLowerCase();
-        System.out.println(ui.searchResult);
-        boolean isAnything = false;
+        System.out.println("Подходящие варианты:");
+        boolean hasMatch = false;
         for (int i = 0; i < booksNumber; ++i) {
             if (books[i].getTitle().toLowerCase().contains(input)) {
-                displayBookInfo(ui, i, "");
-                isAnything = true;
+                displayBookInfo(i, "");
+                hasMatch = true;
             }
         }
-        if (!isAnything) {
-            System.out.println(ui.findNothing);
+        if (!hasMatch) {
+            System.out.println("Поск не дал результатов.");
         }
     }
 
-    public static void displayInfo(ConsoleUi ui) {
-        System.out.printf("%s %d. %s %d.\n", ui.booksAmount, booksNumber, ui.emptyShelves, books.length - booksNumber);
+    public static void displayBookcaseInfo() {
+        System.out.printf("В шкафу книг: %d. Свободно полок: %d.\n", booksNumber, books.length - booksNumber);
     }
 
-    public static void displayBookInfo(ConsoleUi ui, int shelf, String state) {
-        if (state.equals("add")) {
-            System.out.println(ui.separator);
+    public static void displayBookInfo(int shelf, String keyWord) {
+        if (keyWord.equals("add")) {
             System.out.printf("Полка %d. Добавлена книга:%n%s%n", shelf, books[shelf - 1]);
             return;
         }
-        if (state.equals("delete")) {
-            System.out.println(ui.separator);
+        if (keyWord.equals("delete")) {
             System.out.printf("Полка %d. Удалена книга:%n%s%n", shelf, books[shelf - 1]);
             return;
         }
