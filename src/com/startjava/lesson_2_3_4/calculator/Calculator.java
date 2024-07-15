@@ -25,7 +25,7 @@ public class Calculator {
     public static double calculate(String inputExpression) {
         String[] elements = inputExpression.trim().split(" +");
         checkExpressionLength(elements);
-        checkIsIntegers(elements);
+        parseInt(elements);
         sign = elements[1];
         return switch (sign) {
             case "+" -> arg1 + arg2;
@@ -33,7 +33,7 @@ public class Calculator {
             case "*" -> arg1 * arg2;
             case "/" -> div(arg1, arg2);
             case "^" -> Math.pow(arg1, arg2);
-            case "%" -> Math.floorMod(arg1, arg2);
+            case "%" -> modulus(arg1, arg2);
             default -> throw new IllegalStateException("Ошибка! Используйте только операции - + * / % ^");
         };
     }
@@ -44,7 +44,7 @@ public class Calculator {
         }
     }
 
-    public static void checkIsIntegers(String[] elements) {
+    public static void parseInt(String[] elements) {
         try {
             arg1 = Integer.parseInt(elements[0]);
             arg2 = Integer.parseInt(elements[2]);
@@ -58,6 +58,13 @@ public class Calculator {
             throw new ArithmeticException("Ошибка! На 0 делить нельзя.");
         }
         return arg1 / arg2;
+    }
+
+    public static double modulus(int arg1, int arg2) {
+        if (arg2 == 0.0) {
+            throw new ArithmeticException("Ошибка! На 0 делить нельзя.");
+        }
+        return Math.floorMod(arg1, arg2);
     }
 }
 

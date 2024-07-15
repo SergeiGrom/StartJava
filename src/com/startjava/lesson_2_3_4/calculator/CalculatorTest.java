@@ -10,9 +10,9 @@ public class CalculatorTest {
     public static void main(String[] args) {
         System.out.println("Калькулятор.");
         Scanner sc = new Scanner(System.in);
-        double result;
         String answer = YES;
         do {
+            double result;
             if (YES.equals(answer)) {
                 System.out.print("Введите выражение: ");
                 try {
