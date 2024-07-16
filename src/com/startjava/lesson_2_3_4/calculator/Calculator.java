@@ -40,7 +40,7 @@ public class Calculator {
 
     public static void checkExpressionLength(String[] elements) {
         if (elements.length != EXPRESSION_LENGTH) {
-            throw new RuntimeException("Ошибка! Введите, разделяя мат.оператор и цифры пробелом.");
+            throw new RuntimeException("Ошибка! Отделяйте пробелом каждый введенный элемент выражения.");
         }
     }
 
