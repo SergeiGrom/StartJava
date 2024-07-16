@@ -9,31 +9,36 @@ public class GuessNumberTest {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.printf("\n\t\tИгра \"Угадай число\" (от 1 до %d).\n", GuessNumber.MAX_RANGE);
-        GuessNumber game = new GuessNumber(inputName(scanner), inputName(scanner), inputName(scanner));
+        GuessNumber game = new GuessNumber(inputName(scanner));
         String answer = YES;
         do {
-            if (YES.equals(answer)) {
+            if (isEquals(answer, YES)) {
                 game.start();
                 System.out.print("\nХотите продолжить игру? [yes/no]: ");
             } else {
                 System.out.print("Введите корректный ответ [yes/no]: ");
             }
             answer = scanner.nextLine();
-        } while (!NO.equals(answer));
+        } while (!isEquals(answer, NO));
         scanner.close();
     }
 
-    private static String inputName(Scanner scanner) {
-        String name;
-        while (true) {
-            System.out.print("Введите имя игрока : ");
-            name = scanner.nextLine();
-            if (!name.isBlank()) {
-                break;
-            } else {
+    private static String[] inputName(Scanner scanner) {
+        String[] names = new String[GuessNumber.PLAYERS];
+        for (int i = 0; i < names.length; i++) {
+            while (true) {
+                System.out.print("Введите имя игрока : ");
+                names[i] = scanner.nextLine();
+                if (!names[i].isBlank()) {
+                    break;
+                }
                 System.out.println("Ошибка. Имя не должно быть пустым.");
             }
         }
-        return name;
+        return names;
+    }
+
+    private static boolean isEquals(String answer, String flag) {
+        return flag.equals(answer);
     }
 }
