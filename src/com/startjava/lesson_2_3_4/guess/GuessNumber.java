@@ -27,26 +27,25 @@ public class GuessNumber {
         for (int i = 1; i <= ROUNDS; i++) {
             int hiddenNum = MIN_RANGE + (int) (Math.random() * MAX_RANGE);
             System.out.println("\t\tРАУНД " + i);
-            int j = 0;
             boolean hasWinner = false;
+            int attempt = 0;
             while (!hasWinner) {
-                if (j == Player.ATTEMPT_MAX) {
+                if (attempt == Player.ATTEMPT_MAX) {
                     System.out.printf("\nУ игрока %s закончились попытки.\n", players[0].getName());
                     break;
                 }
                 for (Player player : players) {
                     System.out.printf("Ходит %s.\nВведите число: ", player.getName());
-                    inputNumber(player, j);
-                    int attempt = player.getAttempt();
+                    inputNumber(player);
+                    attempt = player.getAttempt();
                     player.setAttempt(++attempt);
-                    if (checkNumber(player, hiddenNum, j)) {
+                    if (checkNumber(player, hiddenNum)) {
                         int wins = player.getWins();
                         player.setWins(++wins);
                         hasWinner = true;
                         break;
                     }
                 }
-                j++;
             }
             displayNumbers(players);
             setDefault(players);
@@ -55,7 +54,7 @@ public class GuessNumber {
         setWinsDefault(players);
     }
 
-    public void shufflePlayers(Player[] players) {
+    private void shufflePlayers(Player[] players) {
         Random rand = new Random();
         Player swap;
         for (int i = players.length - 1; i >= 1; i--) {
@@ -66,10 +65,10 @@ public class GuessNumber {
         }
     }
 
-    public void inputNumber(Player player, int index) {
+    private void inputNumber(Player player) {
         while (true) {
             try {
-                player.setInputNum(scanner.nextInt(), index);
+                player.setInputNum(scanner.nextInt());
                 scanner.nextLine();
                 break;
             } catch (RuntimeException e) {
@@ -78,31 +77,31 @@ public class GuessNumber {
         }
     }
 
-    public boolean checkNumber(Player player, int hiddenNum, int index) {
-        if (player.getInputNums()[index] == hiddenNum) {
-            System.out.printf("\nПОБЕДИЛ %s c %d-й попытки.\n", player.getName(), (index + 1));
+    private boolean checkNumber(Player player, int hiddenNum) {
+        if (player.lastInputNum() == hiddenNum) {
+            System.out.printf("\nПОБЕДИЛ %s c %d-й попытки.\n", player.getName(), player.getAttempt());
             return true;
         }
-        System.out.printf("\nЧисло %d %s того, что загадал компьютер.\n", player.getInputNums()[index],
-                player.getInputNums()[index] > hiddenNum ? "больше" : "меньше");
+        System.out.printf("\nЧисло %d %s того, что загадал компьютер.\n", player.lastInputNum(),
+                player.lastInputNum() > hiddenNum ? "больше" : "меньше");
         return false;
     }
 
-    public void displayNumbers(Player[] players) {
+    private void displayNumbers(Player[] players) {
         for (Player player : players) {
             System.out.printf("%s ввел: %s\n", player.getName(),
                     Arrays.toString(player.getInputNums()).replaceAll("[\\[\\]]", ""));
         }
     }
 
-    public void setDefault(Player[] players) {
+    private void setDefault(Player[] players) {
         for (Player player : players) {
             player.cleanInputNums();
             player.setAttempt(0);
         }
     }
 
-    public void findWinner(Player[] players) {
+    private void findWinner(Player[] players) {
         Arrays.sort(players, Comparator.comparing(Player::getWins).reversed());
         String result = "";
         if (players[0].getWins() > players[1].getWins()) {
@@ -112,13 +111,13 @@ public class GuessNumber {
         for (Player player : players) {
             if (players[0].getWins() == player.getWins()) {
                 winners.append(player.getName()).append(" ");
-                result = "ничья между " + winners;
+                result = "ничья между: " + winners;
             }
         }
-        System.out.println("\nПо результатам " + ROUNDS + " раундов " + result + ".");
+        System.out.printf("\nПо результатам %d раундов %s.", ROUNDS, result.trim());
     }
 
-    public void setWinsDefault(Player[] players) {
+    private void setWinsDefault(Player[] players) {
         for (Player player : players) {
             player.setWins(0);
         }
