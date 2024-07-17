@@ -3,7 +3,7 @@ package com.startjava.lesson_2_3_4.guess;
 import java.util.Arrays;
 
 public class Player {
-    static final int ATTEMPT_MAX = 3;
+    static final int ATTEMPT_MAX = 10;
     private int attempt;
     private String name;
     private int[] inputNums = new int[ATTEMPT_MAX];
@@ -29,12 +29,12 @@ public class Player {
         return Arrays.copyOf(inputNums, attempt);
     }
 
-    public void setInputNum(int number) {
-        if (number < GuessNumber.MIN_RANGE || number > GuessNumber.MAX_RANGE) {
-            throw new IllegalArgumentException("Число должно входить в интервал [" + GuessNumber.MIN_RANGE +
-                                               ", " + GuessNumber.MAX_RANGE + "].\nПопробуйте еще раз: ");
+    public void setInputNum(int input) {
+        if (input < GuessNumber.MIN_RANGE || input > GuessNumber.MAX_RANGE) {
+            throw new IllegalArgumentException("Число должно входить в интервал от " + GuessNumber.MIN_RANGE +
+                                               " до " + GuessNumber.MAX_RANGE + ".\nПопробуйте еще раз: ");
         }
-        inputNums[attempt] = number;
+        inputNums[attempt] = input;
     }
 
     public int getWins() {
@@ -49,7 +49,7 @@ public class Player {
         Arrays.fill(inputNums, 0, attempt, 0);
     }
 
-    public int lastInputNum() {
+    public int getLastInput() {
         return inputNums[attempt - 1];
     }
 

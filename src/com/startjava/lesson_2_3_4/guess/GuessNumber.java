@@ -28,20 +28,15 @@ public class GuessNumber {
             int hiddenNum = MIN_RANGE + (int) (Math.random() * MAX_RANGE);
             System.out.println("\t\tРАУНД " + i);
             boolean hasWinner = false;
-            int attempt = 0;
             while (!hasWinner) {
-                if (attempt == Player.ATTEMPT_MAX) {
+                if (players[0].getAttempt() == Player.ATTEMPT_MAX) {
                     System.out.printf("\nУ игрока %s закончились попытки.\n", players[0].getName());
                     break;
                 }
                 for (Player player : players) {
                     System.out.printf("Ходит %s.\nВведите число: ", player.getName());
                     inputNumber(player);
-                    attempt = player.getAttempt();
-                    player.setAttempt(++attempt);
                     if (checkNumber(player, hiddenNum)) {
-                        int wins = player.getWins();
-                        player.setWins(++wins);
                         hasWinner = true;
                         break;
                     }
@@ -56,10 +51,9 @@ public class GuessNumber {
 
     private void shufflePlayers(Player[] players) {
         Random rand = new Random();
-        Player swap;
         for (int i = players.length - 1; i >= 1; i--) {
             int j = rand.nextInt(i);
-            swap = players[i];
+            Player swap = players[i];
             players[i] = players[j];
             players[j] = swap;
         }
@@ -68,22 +62,28 @@ public class GuessNumber {
     private void inputNumber(Player player) {
         while (true) {
             try {
-                player.setInputNum(scanner.nextInt());
-                scanner.nextLine();
+                int input = Integer.parseInt(scanner.nextLine());
+                player.setInputNum(input);
+                int attempt = player.getAttempt();
+                player.setAttempt(++attempt);
                 break;
-            } catch (RuntimeException e) {
+            } catch (NumberFormatException e) {
+                System.out.print("Введено не целое число.\nПопробуйте еще раз: ");
+            } catch (IllegalArgumentException e) {
                 System.out.print(e.getMessage());
             }
         }
     }
 
     private boolean checkNumber(Player player, int hiddenNum) {
-        if (player.lastInputNum() == hiddenNum) {
+        if (player.getLastInput() == hiddenNum) {
+            int wins = player.getWins();
+            player.setWins(++wins);
             System.out.printf("\nПОБЕДИЛ %s c %d-й попытки.\n", player.getName(), player.getAttempt());
             return true;
         }
-        System.out.printf("\nЧисло %d %s того, что загадал компьютер.\n", player.lastInputNum(),
-                player.lastInputNum() > hiddenNum ? "больше" : "меньше");
+        System.out.printf("\nЧисло %d %s того, что загадал компьютер.\n", player.getLastInput(),
+                player.getLastInput() > hiddenNum ? "больше" : "меньше");
         return false;
     }
 
