@@ -20,7 +20,7 @@ public class GuessNumber {
     }
 
     public void start() {
-        System.out.printf("\t\tИгра началась!\nУ каждого игрока по %d попыток.\n", Player.ATTEMPT_MAX);
+        System.out.printf("\t\tИгра началась!\nУ каждого игрока по %d попыток.\n", Player.ATTEMPTS_MAX);
         shufflePlayers(players);
         System.out.printf("Очередность хода: %s.\n",
                 Arrays.toString(players).replaceAll("[\\[\\]]", ""));
@@ -29,7 +29,7 @@ public class GuessNumber {
             System.out.println("\t\tРАУНД " + i);
             boolean hasWinner = false;
             while (!hasWinner) {
-                if (players[0].getAttempt() == Player.ATTEMPT_MAX) {
+                if (players[0].getAttempt() == Player.ATTEMPTS_MAX) {
                     System.out.printf("\nУ игрока %s закончились попытки.\n", players[0].getName());
                     break;
                 }
@@ -76,14 +76,14 @@ public class GuessNumber {
     }
 
     private boolean checkNumber(Player player, int hiddenNum) {
-        if (player.getLastInput() == hiddenNum) {
+        if (player.getLastNum() == hiddenNum) {
             int wins = player.getWins();
             player.setWins(++wins);
             System.out.printf("\nПОБЕДИЛ %s c %d-й попытки.\n", player.getName(), player.getAttempt());
             return true;
         }
-        System.out.printf("\nЧисло %d %s того, что загадал компьютер.\n", player.getLastInput(),
-                player.getLastInput() > hiddenNum ? "больше" : "меньше");
+        System.out.printf("\nЧисло %d %s того, что загадал компьютер.\n", player.getLastNum(),
+                player.getLastNum() > hiddenNum ? "больше" : "меньше");
         return false;
     }
 
