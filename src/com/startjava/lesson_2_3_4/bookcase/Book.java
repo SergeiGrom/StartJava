@@ -3,29 +3,27 @@ package com.startjava.lesson_2_3_4.bookcase;
 public class Book {
     private String author;
     private String title;
-    private int yearEstablishment;
+    private int year;
 
-    @Override
-    public String toString() {
-        return author + ", " +
-                title + ", " +
-                yearEstablishment;
+    public Book(String author, String title, int year) {
+        this.author = author;
+        this.title = title;
+        this.year = year;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public String getAuthor() {
+        return author;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setYearEstablishment(int yearEstablishment) {
-        this.yearEstablishment = yearEstablishment;
+    @Override
+    public String toString() {
+        return author + ", " +
+               title + ", " +
+               year;
     }
 }
 
