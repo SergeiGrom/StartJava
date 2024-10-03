@@ -1,6 +1,7 @@
 package com.startjava.lesson_1.base;
 
 public class VariableNamesTheme {
+    @SuppressWarnings("checkstyle:LocalVariableName")
     public static void main(String[] args) {
         System.out.println("1. Разные переменные");
         // цифра
@@ -72,16 +73,16 @@ public class VariableNamesTheme {
         System.out.printf("счет в игре = %s:%s%n", gameScore, gameScore);
 
         // максимальная длина
-        long maxLenght = (long) Math.pow(maxNumber, 2);
-        System.out.printf("максимальная длина = %s%n", maxLenght);
+        long maxLength = (long) Math.pow(maxNumber, 2);
+        System.out.printf("максимальная длина = %s%n", maxLength);
 
         // пункт меню
         int menuItem = 5;
         System.out.printf("пункт меню = %s%n", menuItem);
 
         // стоимость кофе на вынос
-        double takeawayCoffeePriсe = 2.5;
-        System.out.printf("стоимость кофе на вынос = %s%n", takeawayCoffeePriсe);
+        double takeawayCoffeePrice = 2.5;
+        System.out.printf("стоимость кофе на вынос = %s%n", takeawayCoffeePrice);
 
         // дата начала
         int startDate = 20;
@@ -150,7 +151,7 @@ public class VariableNamesTheme {
         System.out.printf("новый идентификатор клиента = %s%n", newCid);
 
         // кодировка american standard code for information interchange
-        char encodingAscii = 01;
+        char encodingAscii = 1;
         System.out.printf("кодировка american standard code for information interchange = %s%n", 
                 encodingAscii);
     }
