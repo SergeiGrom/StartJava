@@ -18,14 +18,24 @@ public class BookcaseTest {
 
     private enum MenuOptions {
         VIEW(1), FIND(2), ADD(3), DELETE(4), DELETE_ALL(5), EXIT(6);
-        private int optionNum;
+        private int optionNumber;
 
-        MenuOptions(int option) {
-            this.optionNum = option;
+        MenuOptions(int optionNumber) {
+            this.optionNumber = optionNumber;
         }
 
-        public int getOptionNum() {
-            return optionNum;
+        public int getOptionNumber() {
+            return optionNumber;
+        }
+
+        private static MenuOptions getEnumByValue(int input) {
+            MenuOptions[] menuOptions = values();
+            for (MenuOptions option : menuOptions) {
+                if (option.getOptionNumber() == input) {
+                    return option;
+                }
+            }
+            return null;
         }
     }
 
@@ -68,19 +78,14 @@ public class BookcaseTest {
     }
 
     private static void mainMenu() {
-        System.out.print(MAIN_OPTIONS);
-        switch (sc.nextLine()) {
-            case "1" -> currentOption = MenuOptions.VIEW;
-            case "2" -> currentOption = MenuOptions.FIND;
-            case "3" -> currentOption = MenuOptions.ADD;
-            case "4" -> currentOption = MenuOptions.DELETE;
-            case "5" -> currentOption = MenuOptions.DELETE_ALL;
-            case "6" -> currentOption = MenuOptions.EXIT;
-            default -> {
+        do {
+            System.out.print(MAIN_OPTIONS);
+            int input = readInt();
+            currentOption = MenuOptions.getEnumByValue(input);
+            if (currentOption == null) {
                 System.out.println("Ошибка. Не верно введен пункт меню.");
-                mainMenu();
             }
-        }
+        } while (currentOption == null);
         pressEnter();
     }
 
@@ -134,7 +139,7 @@ public class BookcaseTest {
     private static void pressEnter() {
         String input;
         do {
-            System.out.print("Для продолжения работы нажмите клавишу <Enter>");
+            System.out.print("\nДля продолжения работы нажмите клавишу <Enter>\n");
             input = sc.nextLine();
         } while (!input.isEmpty());
     }
