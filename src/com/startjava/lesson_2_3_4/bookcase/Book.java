@@ -3,16 +3,12 @@ package com.startjava.lesson_2_3_4.bookcase;
 public class Book {
     private String author;
     private String title;
-    private int year;
+    private int yearPublication;
 
     public Book(String author, String title, int year) {
         this.author = author;
         this.title = title;
-        this.year = year;
-    }
-
-    public String getAuthor() {
-        return author;
+        this.yearPublication = year;
     }
 
     public String getTitle() {
@@ -23,7 +19,7 @@ public class Book {
     public String toString() {
         return author + ", " +
                title + ", " +
-               year;
+               yearPublication;
     }
 }
 
