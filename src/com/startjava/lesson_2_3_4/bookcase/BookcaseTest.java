@@ -15,7 +15,7 @@ public class BookcaseTest {
             Введите пункт меню:\s""";
     private static Scanner sc = new Scanner(System.in);
     private static MenuItems menuItem;
-    private static Bookcase bookcase = new Bookcase(0);
+    private static Bookcase bookcase = new Bookcase();
 
     public static void main(String[] args) {
         while (menuItem != MenuItems.EXIT) {
@@ -44,6 +44,8 @@ public class BookcaseTest {
             case ADD -> {
                 if (!bookcase.isFull()) {
                     addBook();
+                } else {
+                    System.out.println("Шкаф полон. Вы не можете добавить еще книги.");
                 }
             }
             case DELETE_ALL -> {
@@ -77,12 +79,10 @@ public class BookcaseTest {
     }
 
     private static void displayBookcase() {
-        int maxLine = bookcase.maxInfoLength();
-        for (int i = 0; i < bookcase.getBooks().length; i++) {
+        for (int i = 0; i < bookcase.getBooksNumber(); i++) {
             System.out.printf("Полка %02d", (i + 1));
-            System.out.println("|" + (bookcase.getBooks()[i] != null ?
-                    bookcase.getBooks()[i] + " ".repeat(maxLine - bookcase.getBooks()[i].toString().length()) :
-                    "-".repeat(maxLine)) + "|");
+            System.out.println("|" + bookcase.getBooks()[i] +
+                               " ".repeat(bookcase.getMaxShelvesLen() - bookcase.getBooks()[i].toString().length()) + "|");
         }
     }
 
