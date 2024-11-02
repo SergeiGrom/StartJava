@@ -8,12 +8,12 @@ public class Bookcase {
     private int booksNumber;
     private Book[] books = new Book[CAPACITY];
 
-    public int getBooksNumber() {
-        return booksNumber;
-    }
-
     public int getMaxShelvesLen() {
         return maxShelvesLen;
+    }
+
+    public int getBooksNumber() {
+        return booksNumber;
     }
 
     public Book[] getBooks() {
@@ -61,19 +61,19 @@ public class Bookcase {
         return CAPACITY - booksNumber;
     }
 
-    public void updateLenShelves() {
-        int maxLen = Integer.MIN_VALUE;
-        for (Book book : getBooks()) {
-            maxLen = Math.max(book.toString().length(), maxLen);
-        }
-        maxShelvesLen = maxLen;
-    }
-
     public boolean isEmpty() {
         return booksNumber == 0;
     }
 
     public boolean isFull() {
         return booksNumber == CAPACITY;
+    }
+
+    private void updateLenShelves() {
+        int maxLen = 0;
+        for (Book book : getBooks()) {
+            maxLen = Math.max(book.toString().length(), maxLen);
+        }
+        maxShelvesLen = maxLen;
     }
 }

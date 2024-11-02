@@ -19,18 +19,18 @@ public class BookcaseTest {
 
     public static void main(String[] args) {
         while (menuItem != MenuItems.EXIT) {
-            if (bookcase.isEmpty()) {
-                System.out.println("Шкаф пуст. Вы можете добавить книгу.");
-                menuItem = MenuItems.ADD;
-            }
-            menu(menuItem);
+            checkMenuItem();
             pressEnter();
             selectMenuItem();
         }
         sc.close();
     }
 
-    private static void menu(MenuItems menuItem) {
+    private static void checkMenuItem() {
+        if (bookcase.isEmpty()) {
+            System.out.println("Шкаф пуст. Вы можете добавить книгу.");
+            menuItem = MenuItems.ADD;
+        }
         switch (menuItem) {
             case VIEW -> {
                 displayBookcaseInfo();
@@ -55,6 +55,20 @@ public class BookcaseTest {
         }
     }
 
+    private static void displayBookcaseInfo() {
+        System.out.printf("В шкафу книг: %d. Свободно полок: %d.\n", bookcase.getBooksNumber(), bookcase.emptyShelves());
+    }
+
+    private static void displayBookcase() {
+        int shelfNum = 1;
+        for (Book book : bookcase.getBooks()) {
+            System.out.printf("Полка %02d", shelfNum);
+            System.out.println("|" + book +
+                               " ".repeat(bookcase.getMaxShelvesLen() - book.toString().length()) + "|");
+            shelfNum += 1;
+        }
+    }
+
     private static void findDelete() {
         System.out.print("Введите название книги: ");
         String inputTitle = sc.nextLine();
@@ -62,7 +76,7 @@ public class BookcaseTest {
         System.out.println("Результат поиска:");
         if (foundBooks.length != 0) {
             for (Book book : foundBooks) {
-                System.out.println(book.toString());
+                System.out.println(book);
             }
             if (menuItem == MenuItems.DELETE) {
                 bookcase.delete(inputTitle);
@@ -73,43 +87,30 @@ public class BookcaseTest {
         }
     }
 
-    private static void displayBookcaseInfo() {
-        System.out.printf("В шкафу книг: %d. Свободно полок: %d.\n", bookcase.getBooksNumber(),
-                bookcase.emptyShelves());
-    }
-
-    private static void displayBookcase() {
-        for (int i = 0; i < bookcase.getBooksNumber(); i++) {
-            System.out.printf("Полка %02d", (i + 1));
-            System.out.println("|" + bookcase.getBooks()[i] +
-                               " ".repeat(bookcase.getMaxShelvesLen() - bookcase.getBooks()[i].toString().length()) + "|");
-        }
-    }
-
     private static void addBook() {
         System.out.print("Введите имя автора: ");
         String author = sc.nextLine();
         System.out.print("Введите название книги: ");
         String title = sc.nextLine();
         System.out.print("Введите год выпуска: ");
-        int year = validateYear();
+        int year = inputYear();
         Book book = new Book(author, title, year);
         bookcase.add(book);
-        System.out.printf("\nПолка %d. Добавлена книга:%n%s%n", bookcase.getBooksNumber(),
-                book);
+        System.out.printf("\nПолка %d. Добавлена книга:%n%s%n",
+                bookcase.getBooksNumber(), book);
     }
 
-    private static int validateYear() {
+    private static int inputYear() {
         while (true) {
-            int input = readInt();
-            if (input <= Year.now().getValue()) {
-                return input;
+            int userYear = input();
+            if (userYear <= Year.now().getValue()) {
+                return userYear;
             }
             System.out.printf("Ошибка. Год больше текущего: %d.\nПопробуйте снова: ", Year.now().getValue());
         }
     }
 
-    private static int readInt() {
+    private static int input() {
         int input;
         while (true) {
             try {
@@ -122,23 +123,23 @@ public class BookcaseTest {
         return input;
     }
 
-    private static void selectMenuItem() {
-        do {
-            System.out.print(MENU);
-            int input = readInt();
-            menuItem = MenuItems.getEnumByValue(input);
-            if (menuItem == null) {
-                System.out.println("Ошибка. Не верно введен пункт меню.");
-            }
-            System.out.println();
-        } while (menuItem == null);
-    }
-
     private static void pressEnter() {
         String input;
         do {
             System.out.print("\nДля продолжения работы нажмите клавишу <Enter>\n");
             input = sc.nextLine();
         } while (!input.isEmpty());
+    }
+
+    private static void selectMenuItem() {
+        do {
+            System.out.print(MENU);
+            int input = input();
+            menuItem = MenuItems.getEnumByValue(input);
+            if (menuItem == null) {
+                System.out.println("Ошибка. Не верно введен пункт меню.");
+            }
+            System.out.println();
+        } while (menuItem == null);
     }
 }
