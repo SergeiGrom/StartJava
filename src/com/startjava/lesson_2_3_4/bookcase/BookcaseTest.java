@@ -14,11 +14,11 @@ public class BookcaseTest {
             6. Завершить
             Введите пункт меню:\s""";
     private static Scanner sc = new Scanner(System.in);
-    private static MenuItems menuItem;
+    private static MenuItem menuItem;
     private static Bookcase bookcase = new Bookcase();
 
     public static void main(String[] args) {
-        while (menuItem != MenuItems.EXIT) {
+        while (menuItem != MenuItem.EXIT) {
             checkMenuItem();
             pressEnter();
             selectMenuItem();
@@ -29,7 +29,7 @@ public class BookcaseTest {
     private static void checkMenuItem() {
         if (bookcase.isEmpty()) {
             System.out.println("Шкаф пуст. Вы можете добавить книгу.");
-            menuItem = MenuItems.ADD;
+            menuItem = MenuItem.ADD;
         }
         switch (menuItem) {
             case VIEW -> {
@@ -78,7 +78,7 @@ public class BookcaseTest {
             for (Book book : foundBooks) {
                 System.out.println(book);
             }
-            if (menuItem == MenuItems.DELETE) {
+            if (menuItem == MenuItem.DELETE) {
                 bookcase.delete(inputTitle);
                 System.out.println("Книги удалены!");
             }
@@ -135,7 +135,7 @@ public class BookcaseTest {
         do {
             System.out.print(MENU);
             int input = input();
-            menuItem = MenuItems.getEnumByValue(input);
+            menuItem = MenuItem.getName(input);
             if (menuItem == null) {
                 System.out.println("Ошибка. Не верно введен пункт меню.");
             }
