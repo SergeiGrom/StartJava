@@ -34,13 +34,12 @@ SELECT *
 -- Информация из столбцов model_name, mark, launch, kaiju_kill тех роботов, которые уничтожили больше всех kaiju.
 SELECT model_name, mark, launch, kaiju_kill
   FROM Jaegers 
- WHERE kaiju_kill >=
-       (SELECT AVG(kaiju_kill)
-          FROM Jaegers)
+ WHERE kaiju_kill >= (SELECT AVG(kaiju_kill)
+  FROM Jaegers)
  ORDER BY kaiju_kill;
 
 -- Cредний вес роботов, округленный до трех знаков после запятой.
-SELECT ROUND((AVG(weight)) :: numeric, 3)
+SELECT ROUND(AVG(weight), 3)
   FROM Jaegers;
 
 -- Количество уничтоженных kaiju у неразрушенных роботов увеличено на единицу.
